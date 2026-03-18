@@ -1,0 +1,27 @@
+import gradio as gr
+
+def determine_sentence_type(sentence):
+    sentence = sentence.strip()
+    if not sentence:
+        return "Будь ласка, введіть речення."
+    
+    last_char = sentence[-1]
+    if last_char == '?':
+        return "Питальне речення"
+    elif last_char == '!':
+        return "Окличне речення"
+    elif last_char == '.':
+        return "Розповідне речення"
+    else:
+        return "Розповідне речення (або відсутній кінцевий знак)"
+
+interface = gr.Interface(
+    fn=determine_sentence_type,
+    inputs=gr.Textbox(label="Введіть речення", placeholder="Наприклад: Як твої справи?"),
+    outputs=gr.Textbox(label="Тип речення"),
+    title="Визначення типу речення",
+    description="Введіть речення з розділовим знаком у кінці, щоб дізнатися його тип."
+)
+
+if __name__ == "__main__":
+    interface.launch()
